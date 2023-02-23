@@ -1,5 +1,5 @@
 import machine, network, socket, utime, neopixel
-import json
+import json, sys, urandom
 
 # Load config and set global variables
 config = json.load(open('config.json'))
@@ -7,6 +7,11 @@ SSID = config['ssid']
 WIFI_PASSWORD = config['pass']
 LED_COUNT = config['led_count']
 DATA_PIN = config['data_pin']
+
+# Sanity checks
+if LED_COUNT<2:
+    print("led_count must be more than 1")
+    sys.exit()
 
 print("Setting network to client mode")
 sta_if = network.WLAN(network.STA_IF)
@@ -27,9 +32,17 @@ s.listen(1)
 
 print('listening on', addr)
 print('GET /<r>/<g>/<b>/1/2/... => switch leds with addresses 1,2,... to RGB values')
-print(f'there are {led_count} leds')
+print(f'there are {LED_COUNT} leds')
 
 np = neopixel.NeoPixel(machine.Pin(DATA_PIN), LED_COUNT)
+
+for v in range(0,255,25):
+    for i in range(LED_COUNT):
+        np[i] = (v,v,v)
+    np.write()
+    utime.sleep(0.1)
+
+print("Intro is over")
 
 while True:
     try:
