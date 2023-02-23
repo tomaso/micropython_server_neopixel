@@ -1,0 +1,6 @@
+{
+  "ssid": "ExampleSSID",
+  "pass": "WifiPassword",
+  "led_count": 45,
+  "data_pin": 28
+}
