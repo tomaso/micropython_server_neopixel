@@ -36,9 +36,28 @@ print(f"there are {LED_COUNT} leds")
 
 np = neopixel.NeoPixel(machine.Pin(DATA_PIN), LED_COUNT)
 
-for v in range(0, 255, 25):
+rainbow = [
+    (255, 0, 0),
+    (255, 0, 127),
+    (255, 0, 255),
+    (127, 0, 255),
+    (0, 0, 255),
+    (0, 127, 255),
+    (0, 255, 255),
+    (0, 255, 127),
+    (0, 255, 0),
+    (127, 255, 0),
+    (255, 255, 0),
+    (255, 255, 255),
+]
+
+for v in len(rainbow):
+    r, g, b = rainbox[v]
+    r = int(r * v / len(rainbow))
+    g = int(g * v / len(rainbow))
+    b = int(b * v / len(rainbow))
     for i in range(LED_COUNT):
-        np[i] = (v, v, v)
+        np[i] = (r, g, b)
     np.write()
     utime.sleep(0.1)
 
