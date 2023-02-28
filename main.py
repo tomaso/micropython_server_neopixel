@@ -51,8 +51,8 @@ rainbow = [
     (255, 255, 255),
 ]
 
-for v in len(rainbow):
-    r, g, b = rainbox[v]
+for v in range(len(rainbow)):
+    r, g, b = rainbow[v]
     r = int(r * v / len(rainbow))
     g = int(g * v / len(rainbow))
     b = int(b * v / len(rainbow))
